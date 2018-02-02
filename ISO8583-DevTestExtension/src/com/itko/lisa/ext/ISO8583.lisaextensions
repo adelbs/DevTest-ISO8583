@@ -1,0 +1,40 @@
+
+# ----- Delimiters
+
+tcpProtocolDelimiters=com.ca.iso8583.delimiters.ISO8583GenericDelimiter,com.ca.iso8583.delimiters.ISO8583LengthDelimiter
+
+com.ca.iso8583.delimiters.ISO8583GenericDelimiter=ISO8583 Delimiter based on ISO structure file configuration, true, true, false
+com.ca.iso8583.delimiters.ISO8583LengthDelimiter=ISO8583 Delimiter based on a size coming at the first bytes of the message, true, true, false
+
+
+# ----- DPH and TPH classes
+
+vseProtocols=com.ca.iso8583.protocol.ISO8583DataProtocolHandler,com.ca.iso8583.protocol.ISO8583TransportProtocolHandler
+
+com.ca.iso8583.protocol.ISO8583DataProtocolHandler=data:req:resp,ISO8583 Message Converter,Convert ISO8583 messages to and from XML
+com.ca.iso8583.protocol.ISO8583TransportProtocolHandler=hybrid, ISO8583 Protocol, ISO8583 Message Processing Interface, Transport layer that supports message interface simulation based on ISO8583 payloads
+
+
+# ----- Custom steps
+
+nodes=\
+com.ca.iso8583.steps.ISO8583OpenConnectionNode,\
+com.ca.iso8583.steps.ISO8583RequestNode,\
+com.ca.iso8583.steps.ISO8583ListenerNode,\
+com.ca.iso8583.steps.ISO8583ResponderNode,\
+com.ca.iso8583.steps.ISO8583CloseConnectionNode
+
+nodeCategories=ISO8583
+
+ISO8583=\
+com.ca.iso8583.steps.ISO8583OpenConnectionNode,\
+com.ca.iso8583.steps.ISO8583RequestNode,\
+com.ca.iso8583.steps.ISO8583ListenerNode,\
+com.ca.iso8583.steps.ISO8583ResponderNode,\
+com.ca.iso8583.steps.ISO8583CloseConnectionNode
+
+com.ca.iso8583.steps.ISO8583OpenConnectionNode=com.ca.iso8583.steps.ISO8583OpenConnectionNodeInfo,com.ca.iso8583.steps.ISO8583OpenConnectionCustomEditor
+com.ca.iso8583.steps.ISO8583RequestNode=com.ca.iso8583.steps.ISO8583RequestNodeInfo,com.ca.iso8583.steps.ISO8583RequestCustomEditor
+com.ca.iso8583.steps.ISO8583ListenerNode=com.ca.iso8583.steps.ISO8583ListenerNodeInfo,com.ca.iso8583.steps.ISO8583ListenerCustomEditor
+com.ca.iso8583.steps.ISO8583ResponderNode=com.ca.iso8583.steps.ISO8583ResponderNodeInfo,com.ca.iso8583.steps.ISO8583ResponderCustomEditor
+com.ca.iso8583.steps.ISO8583CloseConnectionNode=com.ca.iso8583.steps.ISO8583CloseConnectionNodeInfo,com.ca.iso8583.steps.ISO8583CloseConnectionCustomEditor

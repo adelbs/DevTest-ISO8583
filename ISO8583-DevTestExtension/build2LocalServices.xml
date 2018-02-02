@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="build2Devtest" name="Creates Jar">
+	
+	<property name="devtestDir" value="C:/CA/DevTest" />
+
+    <target name="build2Devtest">
+    	<exec executable="taskkill">
+			<arg line="/F /T /FI &quot;imagename eq workstation*&quot;"/>
+		</exec>
+
+    	<exec executable="${devtestDir}/bin/stopdefservers.bat"/>
+    	
+    	<sleep seconds="3"/>
+    	
+    	<ant antfile="build2DevTest.xml" target="build2Devtest" />
+    	
+    	<exec executable="${devtestDir}/bin/startdefservers.bat"/>
+    	
+    	<exec executable="${devtestDir}/bin/Workstation.exe" spawn="true"/>
+    </target>
+	
+</project>

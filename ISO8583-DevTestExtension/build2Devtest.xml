@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="build2Devtest" name="Creates Jar">
+	
+	<property name="devtestDir" value="C:/CA/DevTest" />
+	<property name="hotDeployDir" value="${devtestDir}/hotDeploy/" />
+	<property name="sharedDir" value="${devtestDir}/lib/shared/" />
+	
+	<property name="ISO8583-CoreUI" value="../ISO8583-CoreUI" />
+	
+    <target name="build2Devtest">
+    	<delete>
+    		<fileset dir="${ISO8583-CoreUI}/build/" includes="CST-*" />
+    	    <fileset dir="build/" includes="CST-*" />
+    	</delete>
+    	
+    	<ant antfile="${ISO8583-CoreUI}/build.xml" dir="${ISO8583-CoreUI}" target="buildJar" />
+    	<ant antfile="build.xml" target="buildJar" />
+    	
+		<delete failonerror="false">
+			<fileset dir="${hotDeployDir}" includes="CST-ISO8583*" />
+			<fileset dir="${sharedDir}" includes="CST-ISO8583*" />
+		</delete>
+    	
+    	<copy todir="${hotDeployDir}" overwrite="false">
+    		<fileset dir="${ISO8583-CoreUI}/build/" includes="CST-*" />
+    		<fileset dir="build/" includes="CST-*" />
+    	</copy>
+
+    	<copy todir="${sharedDir}" overwrite="false">
+    		<fileset dir="${ISO8583-CoreUI}/build/" includes="CST-*" />
+    		<fileset dir="build/" includes="CST-*" />
+    	</copy>
+    </target>
+	
+</project>
