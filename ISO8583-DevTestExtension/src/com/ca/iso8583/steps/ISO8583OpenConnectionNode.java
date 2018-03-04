@@ -2,9 +2,9 @@ package com.ca.iso8583.steps;
 
 import java.io.PrintWriter;
 
+import org.adelbs.iso8583.clientserver.ISOConnection;
 import org.w3c.dom.Element;
 
-import com.ca.iso8583.clientserver.ISOConnection;
 import com.ca.iso8583.vo.ConnectionInfoVO;
 import com.itko.lisa.test.TestCase;
 import com.itko.lisa.test.TestDefException;

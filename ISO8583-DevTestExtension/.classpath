@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ISO8583-CoreUI"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/agent-zip-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/atk-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/desensitize-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/devtest-security-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/dradis-cic-10.2.4.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/itext-2.1.7.js6-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/jasperreports-6.5.0.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/lisa-acl-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/lisa-acl-api-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/lisa-agent.jar"/>
@@ -49,9 +46,6 @@
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/lisa-virtualize-byop-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/lisa-virtualize-swift-10.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/lisa-ws-xml-10.2.4.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/mysql-connector-java-5.1.34-bin.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/org.jfree.chart-osgi_1.0.19.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/org.jfree.jcommon-osgi_1.0.23.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/PFBroker.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/walk-user-lib-dir.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/core/web20bridge-10.2.4.jar"/>
@@ -163,7 +157,6 @@
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/httpmime-4.3.3.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/i4jruntime-4.0.5.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/icu4j-49.1.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/itext-2.1.7.js6-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/itko.xstream-1.3.1.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/itko-activemq-1.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/itko-javassist-3.20.0-GA.jar"/>
@@ -181,7 +174,6 @@
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/jai_codec-1.1.3.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/jai_core-1.1.3.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/jargs-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/jasperreports-6.5.0.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/java-client-3.3.0.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/javahelp-2.0.05.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/java-uuid-generator-3.1.3.jar"/>
@@ -262,7 +254,6 @@
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/mockrunner-jdk1.4-j2ee1.3-0.4.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/msg-simple-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/mx-15.0.0.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/mysql-connector-java-5.1.34-bin.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/nb-darcula-1.5.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/nekohtml-1.9.21.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/netty-3.7.0.Final.jar"/>
@@ -275,8 +266,6 @@
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/opensaml-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/opensaml-2.2.3.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/openws-1.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/org.jfree.chart-osgi_1.0.19.jar"/>
-	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/org.jfree.jcommon-osgi_1.0.23.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/org.restlet.ext.servlet-2.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/org.restlet-2.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/org-mozilla-rhino-patched-6.5.jar"/>
@@ -444,5 +433,6 @@
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/xulrunner-windows-3.4.18.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/zip4j-1.3.1.jar"/>
 	<classpathentry kind="lib" path="C:/CA/DevTest/lib/shared/zookeeper-3.4.6.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Adelbs-ISO8583"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

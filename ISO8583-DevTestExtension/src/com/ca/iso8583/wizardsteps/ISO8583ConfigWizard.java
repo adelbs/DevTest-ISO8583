@@ -6,9 +6,10 @@ import java.awt.event.ComponentListener;
 
 import javax.swing.JOptionPane;
 
+import org.adelbs.iso8583.gui.PnlMain;
+import org.adelbs.iso8583.helper.Iso8583Config;
+
 import com.ca.iso8583.delimiters.ISO8583GenericDelimiter;
-import com.ca.iso8583.gui.PnlMain;
-import com.ca.iso8583.helper.Iso8583Config;
 import com.ca.iso8583.protocol.ISO8583TransportProtocolHandler;
 import com.itko.lisa.gui.WizardStep;
 

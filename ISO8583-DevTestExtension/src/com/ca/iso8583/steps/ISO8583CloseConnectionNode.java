@@ -1,6 +1,7 @@
 package com.ca.iso8583.steps;
 
-import com.ca.iso8583.clientserver.ISOConnection;
+import org.adelbs.iso8583.clientserver.ISOConnection;
+
 import com.itko.lisa.test.TestExec;
 import com.itko.lisa.test.TestRunException;
 

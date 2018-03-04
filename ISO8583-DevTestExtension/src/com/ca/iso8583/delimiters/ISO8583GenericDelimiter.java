@@ -2,7 +2,8 @@ package com.ca.iso8583.delimiters;
 
 import java.util.List;
 
-import com.ca.iso8583.helper.Iso8583Config;
+import org.adelbs.iso8583.helper.Iso8583Config;
+
 import com.itko.lisa.vse.stateful.protocol.tcp.delimiters.TCPDelimiter;
 
 public class ISO8583GenericDelimiter implements TCPDelimiter {

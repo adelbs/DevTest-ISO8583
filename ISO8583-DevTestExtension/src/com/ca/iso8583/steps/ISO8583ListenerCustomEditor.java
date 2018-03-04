@@ -7,8 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import org.adelbs.iso8583.gui.PnlMain;
+
 import com.ca.iso8583.gui.CreateOrUseConnectionPanel;
-import com.ca.iso8583.gui.PnlMain;
 import com.ca.iso8583.vo.ConnectionInfoVO;
 import com.itko.lisa.editor.CustomEditor;
 import com.itko.lisa.editor.TestNodeInfo;

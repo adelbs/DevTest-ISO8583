@@ -2,11 +2,12 @@ package com.ca.iso8583.steps;
 
 import java.util.List;
 
-import com.ca.iso8583.clientserver.CallbackAction;
-import com.ca.iso8583.clientserver.ISOConnection;
-import com.ca.iso8583.exception.ParseException;
-import com.ca.iso8583.helper.PayloadMessageConfig;
-import com.ca.iso8583.protocol.ISOMessage;
+import org.adelbs.iso8583.clientserver.CallbackAction;
+import org.adelbs.iso8583.clientserver.ISOConnection;
+import org.adelbs.iso8583.exception.ParseException;
+import org.adelbs.iso8583.helper.PayloadMessageConfig;
+import org.adelbs.iso8583.protocol.ISOMessage;
+
 import com.itko.lisa.test.TestExec;
 import com.itko.lisa.test.TestRunException;
 import com.itko.lisa.vse.stateful.model.TransientResponse;

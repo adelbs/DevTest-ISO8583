@@ -1,10 +1,10 @@
 package com.ca.iso8583.protocol;
 
+import org.adelbs.iso8583.helper.PayloadMessageConfig;
+import org.adelbs.iso8583.vo.FieldVO;
+import org.adelbs.iso8583.vo.MessageVO;
 import org.apache.log4j.Logger;
 
-import com.ca.iso8583.helper.PayloadMessageConfig;
-import com.ca.iso8583.vo.FieldVO;
-import com.ca.iso8583.vo.MessageVO;
 import com.ca.iso8583.wizardsteps.ISO8583ConfigWizard;
 import com.itko.lisa.test.TestExec;
 import com.itko.lisa.vse.stateful.model.Request;
