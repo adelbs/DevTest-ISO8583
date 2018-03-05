@@ -15,6 +15,14 @@ import com.itko.lisa.vse.stateful.model.TransientResponse;
 
 public class ISO8583ResponderNode extends GenericConnectionChooserNode {
 
+	public ISO8583ResponderNode() {
+		super();
+	}
+	
+	public ISO8583ResponderNode(String connectionName) {
+		this.connectionName = connectionName;
+	}
+
 	@Override
 	public String getTypeName() throws Exception {
 		return "ISO8583 Responder";

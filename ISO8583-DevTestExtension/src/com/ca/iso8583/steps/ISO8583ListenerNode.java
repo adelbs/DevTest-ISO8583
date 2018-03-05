@@ -26,11 +26,20 @@ import com.itko.util.XMLUtils;
 @SuppressWarnings("deprecation")
 public class ISO8583ListenerNode extends TestNode implements GenericCreateConnectionNodeInterface {
 
-	private String keepalive = "";
+	private String keepalive = "0";
 	private String stepContent = "";
 	private String connectionInfo = "";
 	private String connectionName = "";
 
+	public ISO8583ListenerNode() {
+		super();
+	}
+	
+	public ISO8583ListenerNode(String stepContent, String connectionName) {
+		this.stepContent = stepContent;
+		this.connectionName = connectionName;
+	}
+	
 	@Override
 	public String getTypeName() throws Exception {
 		return "ISO8583 Listener";
@@ -44,7 +53,10 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 			
 			final TestExec te = testExec;
 			final PayloadMessageConfig payloadMessageConfig = new PayloadMessageConfig(parsedXML);
-			ISOMessage isoMessage = new ISOMessage(payloadMessageConfig.getMessageVO());
+			ISOMessage isoMessage = null;
+			
+			if (payloadMessageConfig.getMessageVO() != null)
+				isoMessage = new ISOMessage(payloadMessageConfig.getMessageVO());
 			
 			if (!connectionInfo.equals("") && isoConnection == null) {
 				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
@@ -54,7 +66,7 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 			
 			if (isoConnection == null) isoConnection = (ISOConnection) testExec.getStateValue(getConnectionName());
 			
-			final byte[] data = payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig());
+			final byte[] data = (isoMessage != null ? payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig()) : null);
 			final ISOConnection isoKeepaliveConnection = isoConnection;
 			
 			isoConnection.setIsoConfig(payloadMessageConfig.getIsoConfig());
@@ -82,7 +94,8 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 				@Override
 				public void keepalive() {
 					try {
-						isoKeepaliveConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), payloadMessageConfig.getISOTestVO().isResponseSync());
+						if (data != null)
+							isoKeepaliveConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), payloadMessageConfig.getISOTestVO().isResponseSync());
 					} 
 					catch (IOException | ParseException | InterruptedException e) {
 						e.printStackTrace();

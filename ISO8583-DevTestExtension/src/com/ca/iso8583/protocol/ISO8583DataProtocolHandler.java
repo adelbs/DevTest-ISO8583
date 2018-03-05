@@ -2,6 +2,7 @@ package com.ca.iso8583.protocol;
 
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.vo.FieldVO;
+import org.adelbs.iso8583.vo.ISOTestVO;
 import org.adelbs.iso8583.vo.MessageVO;
 import org.apache.log4j.Logger;
 
@@ -83,6 +84,7 @@ public class ISO8583DataProtocolHandler extends DataProtocol {
 			payload = iso8583ConfigWizard.getIso8583Config().getDelimiter().clearPayload(payloadBytes, iso8583ConfigWizard.getIso8583Config());
 			payloadMessageConfig = new PayloadMessageConfig(iso8583ConfigWizard.getIso8583Config());
 			payloadMessageConfig.updateFromPayload(payload);
+			payloadMessageConfig.setISOTestVO(new ISOTestVO(iso8583ConfigWizard.getIso8583Config().getXmlFilePath(), true, true));
 		} 
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);

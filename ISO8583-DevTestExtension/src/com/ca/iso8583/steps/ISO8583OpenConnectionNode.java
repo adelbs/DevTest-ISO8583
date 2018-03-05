@@ -17,6 +17,14 @@ public class ISO8583OpenConnectionNode extends TestNode implements GenericCreate
 
 	private String connectionInfo = "";
 	
+	public ISO8583OpenConnectionNode() {
+		super();
+	}
+	
+	public ISO8583OpenConnectionNode(String connectionInfo) {
+		this.connectionInfo = connectionInfo;
+	}
+	
 	@Override
 	public String getTypeName() throws Exception {
 		return "ISO8583 Open Connection";

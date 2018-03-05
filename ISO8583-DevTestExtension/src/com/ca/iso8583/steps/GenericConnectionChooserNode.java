@@ -11,7 +11,7 @@ import com.itko.util.XMLUtils;
 
 public abstract class GenericConnectionChooserNode extends TestNode {
 
-	private String connectionName = "";
+	protected String connectionName = "";
 	
 	@Override
 	public void initialize(TestCase arg0, Element element) throws TestDefException {

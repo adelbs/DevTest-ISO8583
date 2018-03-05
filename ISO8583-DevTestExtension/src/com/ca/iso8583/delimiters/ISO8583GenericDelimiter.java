@@ -51,7 +51,6 @@ public class ISO8583GenericDelimiter implements TCPDelimiter {
 
 	@Override
 	public String validate() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

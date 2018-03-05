@@ -1,5 +1,7 @@
 package com.ca.iso8583.protocol;
 
+import org.adelbs.iso8583.helper.Iso8583Config;
+
 import com.ca.iso8583.wizardsteps.ISO8583ConfigWizard;
 import com.itko.lisa.gui.WizardStep;
 import com.itko.lisa.vse.stateful.model.TransactionProcessor;
@@ -44,4 +46,7 @@ public class ISO8583TransportProtocolHandler extends TCPProtocolHandler implemen
             return null;
 	}
 
+	public Iso8583Config getIso8583Config() {
+		return iso8583ConfigWizard.getIso8583Config();
+	}
 }
