@@ -70,6 +70,8 @@ public class ISO8583VSMFactory extends DefaultVSMFactory {
 		addStepToTestCase(testCase, listener);
 		
 		//conversarional
+		String pathImage = serviceImageFileName;
+		if (pathImage.charAt(0) == '/' && pathImage.charAt(2) == ':') pathImage = pathImage.substring(1);
 		TestNode chooseStep = createLookupStep(testCase, serviceImageFileName);
 		chooseStep.setName("ISO8583 Image");
 		

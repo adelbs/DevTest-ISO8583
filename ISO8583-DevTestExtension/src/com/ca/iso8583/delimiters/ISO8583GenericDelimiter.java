@@ -2,6 +2,8 @@ package com.ca.iso8583.delimiters;
 
 import java.util.List;
 
+import org.adelbs.iso8583.exception.InvalidPayloadException;
+import org.adelbs.iso8583.exception.PayloadIncompleteException;
 import org.adelbs.iso8583.helper.Iso8583Config;
 
 import com.itko.lisa.vse.stateful.protocol.tcp.delimiters.TCPDelimiter;
@@ -34,7 +36,13 @@ public class ISO8583GenericDelimiter implements TCPDelimiter {
 
 	@Override
 	public boolean locateRequest(List<Byte> bytes) {
-		boolean result = isoConfig.getDelimiter().isPayloadComplete(bytes, isoConfig);
+		boolean result = false;
+		try {
+			result = isoConfig.getDelimiter().isPayloadComplete(bytes, isoConfig);
+		} 
+		catch (InvalidPayloadException e) {
+			result = true;
+		}
 		
 		if (!result) {
             endOfRequest = -1;

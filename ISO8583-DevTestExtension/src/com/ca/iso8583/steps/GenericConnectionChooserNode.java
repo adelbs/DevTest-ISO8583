@@ -29,8 +29,7 @@ public abstract class GenericConnectionChooserNode extends TestNode {
 	
 	@Override
 	public void writeSubXML(PrintWriter pw) {
-		//XMLUtils.streamTagAndChild(pw, "ISO8583ConnectionInfo", (String) getAttribute("ISO8583ConnectionInfo"));
-		XMLUtils.streamTagAndChild(pw, "ISO8583ConnectionInfo", connectionName);
+		XMLUtils.streamTagAndChild(pw, "ISO8583ConnectionName", connectionName);
 		pw.flush();
 	}
 

@@ -66,7 +66,7 @@ public class ISO8583ResponderNode extends GenericConnectionChooserNode {
 			});
 			
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), false);
+			isoConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), false, true);
 		}
 		catch (Exception x) {
 			throw new TestRunException(x.getMessage(), x);
