@@ -65,7 +65,7 @@ public class ISO8583VSMFactory extends DefaultVSMFactory {
 		addStepToTestCase(testCase, openConnection);
 		
 		//listener
-		ISO8583ListenerNode listener = new ISO8583ListenerNode(new ISOTestVO(configFile, true, true).toXML(true), "localhost");
+		ISO8583ListenerNode listener = new ISO8583ListenerNode(new ISOTestVO(configFile).toXML(true), "localhost");
 		listener.setName("Listener");
 		addStepToTestCase(testCase, listener);
 		

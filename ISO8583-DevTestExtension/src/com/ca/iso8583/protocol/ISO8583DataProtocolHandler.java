@@ -84,7 +84,7 @@ public class ISO8583DataProtocolHandler extends DataProtocol {
 			payload = iso8583ConfigWizard.getIso8583Config().getDelimiter().clearPayload(payloadBytes, iso8583ConfigWizard.getIso8583Config());
 			payloadMessageConfig = new PayloadMessageConfig(iso8583ConfigWizard.getIso8583Config());
 			payloadMessageConfig.updateFromPayload(payload);
-			payloadMessageConfig.setISOTestVO(new ISOTestVO(iso8583ConfigWizard.getIso8583Config().getXmlFilePath(), true, true));
+			payloadMessageConfig.setISOTestVO(new ISOTestVO(iso8583ConfigWizard.getIso8583Config().getXmlFilePath()));
 		} 
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);

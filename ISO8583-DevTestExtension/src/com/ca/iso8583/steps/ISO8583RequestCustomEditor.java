@@ -46,13 +46,9 @@ public class ISO8583RequestCustomEditor extends CustomEditor {
 			});
 			
 			createOrUseConnectionPanel.setBounds(0, 20, 400, 200);
-			pnlMain.getPnlGuiMessagesClient().getCkRequestSync().setBounds(10, 240, 179, 22);
-			pnlMain.getPnlGuiMessagesClient().getCkResponseSync().setBounds(10, 260, 179, 22);
 			
 			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().removeAll();
 			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(createOrUseConnectionPanel);
-			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(pnlMain.getPnlGuiMessagesClient().getCkRequestSync());
-			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(pnlMain.getPnlGuiMessagesClient().getCkResponseSync());
 			
 			pnlMain.getTabbedPane().removeTabAt(1);
 			add(pnlMain);

@@ -95,7 +95,7 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 				public void keepalive() {
 					try {
 						if (data != null)
-							isoKeepaliveConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), payloadMessageConfig.getISOTestVO().isResponseSync(), false);
+							isoKeepaliveConnection.sendBytes(data, false);
 					} 
 					catch (IOException | ParseException | InterruptedException e) {
 						e.printStackTrace();
@@ -114,7 +114,7 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 			});
 			
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.waitNextRequest(payloadMessageConfig.getISOTestVO().isRequestSync(), Integer.parseInt(keepalive));
+			isoConnection.processNextPayload(true, Integer.parseInt(keepalive));
 		}
 		catch (Exception x) {
 			throw new TestRunException(x.getMessage(), x);

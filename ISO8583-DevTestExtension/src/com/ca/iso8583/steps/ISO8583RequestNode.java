@@ -70,7 +70,7 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 			});
 			
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), payloadMessageConfig.getISOTestVO().isResponseSync(), false);
+			isoConnection.sendBytes(data, false);
 		}
 		catch (Exception x) {
 			throw new TestRunException(x.getMessage(), x);

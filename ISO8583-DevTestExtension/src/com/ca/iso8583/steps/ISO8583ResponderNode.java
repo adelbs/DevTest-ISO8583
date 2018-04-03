@@ -2,9 +2,7 @@ package com.ca.iso8583.steps;
 
 import java.util.List;
 
-import org.adelbs.iso8583.clientserver.CallbackAction;
 import org.adelbs.iso8583.clientserver.ISOConnection;
-import org.adelbs.iso8583.exception.ParseException;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
 
@@ -39,13 +37,13 @@ public class ISO8583ResponderNode extends GenericConnectionChooserNode {
 			
 			String parsedXML = testExec.parseInState(response.getBodyAsString());
 			
-			final TestExec te = testExec;
+		//	final TestExec te = testExec;
 			final PayloadMessageConfig payloadMessageConfig = new PayloadMessageConfig(parsedXML);
 			ISOMessage isoMessage = new ISOMessage(payloadMessageConfig.getMessageVO());
 			
 			byte[] data = payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig());
 			
-			isoConnection.setIsoConfig(payloadMessageConfig.getIsoConfig());
+		/*	isoConnection.setIsoConfig(payloadMessageConfig.getIsoConfig());
 			isoConnection.setCallback(new CallbackAction() {
 
 				@Override
@@ -63,10 +61,10 @@ public class ISO8583ResponderNode extends GenericConnectionChooserNode {
 						te.setLastResponse("");
 				}
 				
-			});
+			});*/
 			
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.sendBytes(data, payloadMessageConfig.getISOTestVO().isRequestSync(), false, true);
+			isoConnection.sendBytes(data, false);
 		}
 		catch (Exception x) {
 			throw new TestRunException(x.getMessage(), x);

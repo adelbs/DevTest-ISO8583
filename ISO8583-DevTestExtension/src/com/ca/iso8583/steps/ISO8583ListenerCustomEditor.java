@@ -50,13 +50,11 @@ public class ISO8583ListenerCustomEditor extends CustomEditor {
 			});
 			
 			createOrUseConnectionPanel.setBounds(0, 20, 400, 200);
-			pnlMain.getPnlGuiMessagesClient().getCkRequestSync().setBounds(10, 240, 179, 22);
 			lblKeepAlive.setBounds(15, 270, 230, 22);
 			txtKeepAlive.setBounds(240, 270, 40, 22);
 			
 			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().removeAll();
 			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(createOrUseConnectionPanel);
-			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(pnlMain.getPnlGuiMessagesClient().getCkRequestSync());
 			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(lblKeepAlive);
 			pnlMain.getPnlGuiMessagesClient().getConnectionPanel().add(txtKeepAlive);
 			
