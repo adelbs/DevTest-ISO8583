@@ -20,7 +20,7 @@ public class ISO8583VSMFactory extends DefaultVSMFactory {
 
 	private final TransportProtocol transportProtocol;
 	
-	private int hostPort;
+	private String hostPort;
 	private String configFile;
 	
 	public ISO8583VSMFactory(TransportProtocol transportProtocol, boolean outputAsObject) {
@@ -28,7 +28,7 @@ public class ISO8583VSMFactory extends DefaultVSMFactory {
 		this.transportProtocol = transportProtocol;
 		
 		configFile = ((ISO8583TransportProtocolHandler) transportProtocol).getIso8583Config().getXmlFilePath();
-		hostPort = Integer.parseInt(((TCPTransportProtocolConfiguration) transportProtocol.getConfig()).getListenPortUnparsed());
+		hostPort = ((TCPTransportProtocolConfiguration) transportProtocol.getConfig()).getListenPortUnparsed();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class ISO8583VSMFactory extends DefaultVSMFactory {
 	    
 		//open connection
 		ISO8583OpenConnectionNode openConnection = new ISO8583OpenConnectionNode(
-				new ConnectionInfoVO("localhost", "localhost", hostPort, 120, true).getSaveString());
+				new ConnectionInfoVO("localhost", "localhost", hostPort, String.valueOf(120), true).getSaveString());
 		openConnection.setName("Open Connection");
 		addStepToTestCase(testCase, openConnection);
 		

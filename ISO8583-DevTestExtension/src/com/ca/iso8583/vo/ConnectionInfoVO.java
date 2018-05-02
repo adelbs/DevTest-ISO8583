@@ -6,13 +6,13 @@ public class ConnectionInfoVO {
 	
 	private String host;
 	
-	private int port;
+	private String port;
 	
-	private int timeout;
+	private String timeout;
 	
 	private boolean server;
 
-	public ConnectionInfoVO(String name, String host, int port, int timeout, boolean server) {
+	public ConnectionInfoVO(String name, String host, String port, String timeout, boolean server) {
 		this.name = name;
 		this.host = host;
 		this.port = port;
@@ -24,8 +24,8 @@ public class ConnectionInfoVO {
 		String[] savedValues = savedString.split("\\|");
 		this.name = savedValues[0];
 		this.host = savedValues[1];
-		this.port = Integer.parseInt(savedValues[2]);
-		this.timeout = Integer.parseInt(savedValues[3]);
+		this.port = savedValues[2];
+		this.timeout = savedValues[3];
 		this.server = savedValues[4].equals("true");
 	}
 	
@@ -54,11 +54,11 @@ public class ConnectionInfoVO {
 		this.host = host;
 	}
 
-	public int getPort() {
+	public String getPort() {
 		return port;
 	}
 
-	public void setPort(int port) {
+	public void setPort(String port) {
 		this.port = port;
 	}
 
@@ -70,11 +70,11 @@ public class ConnectionInfoVO {
 		this.server = server;
 	}
 
-	public int getTimeout() {
+	public String getTimeout() {
 		return timeout;
 	}
 
-	public void setTimeout(int timeout) {
+	public void setTimeout(String timeout) {
 		this.timeout = timeout;
 	}
 	

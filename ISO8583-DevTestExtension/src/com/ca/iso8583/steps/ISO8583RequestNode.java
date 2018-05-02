@@ -41,7 +41,10 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 			
 			if (!connectionInfo.equals("")) {
 				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
-				isoConnection = new ISOConnection(connInfo.isServer(), connInfo.getHost(), connInfo.getPort(), connInfo.getTimeout());
+				isoConnection = new ISOConnection(connInfo.isServer(), 
+						testExec.parseInState(connInfo.getHost()), 
+						Integer.parseInt(testExec.parseInState(connInfo.getPort())), 
+						Integer.parseInt(testExec.parseInState(connInfo.getTimeout())));
 				testExec.setStateObject(connInfo.getName(), isoConnection);
 			}
 			
@@ -70,7 +73,8 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 			});
 			
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.sendBytes(data, false);
+			isoConnection.sendBytes(data);
+			isoConnection.processNextPayload(true, 0);
 		}
 		catch (Exception x) {
 			throw new TestRunException(x.getMessage(), x);

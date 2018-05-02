@@ -34,7 +34,10 @@ public class ISO8583OpenConnectionNode extends TestNode implements GenericCreate
 	protected void execute(TestExec testExec) throws TestRunException {
 		try {
 			ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
-			ISOConnection isoConnection = new ISOConnection(connInfo.isServer(), connInfo.getHost(), connInfo.getPort(), connInfo.getTimeout());
+			ISOConnection isoConnection = new ISOConnection(connInfo.isServer(), 
+					testExec.parseInState(connInfo.getHost()), 
+					Integer.parseInt(testExec.parseInState(connInfo.getPort())), 
+					Integer.parseInt(testExec.parseInState(connInfo.getTimeout())));
 			testExec.setStateObject(connInfo.getName(), isoConnection);
 		}
 		catch (Exception x) {

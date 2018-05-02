@@ -14,17 +14,16 @@ import org.w3c.dom.Element;
 
 import com.ca.iso8583.vo.ConnectionInfoVO;
 import com.itko.lisa.test.TestCase;
-import com.itko.lisa.test.TestDefException;
 import com.itko.lisa.test.TestExec;
-import com.itko.lisa.test.TestNode;
 import com.itko.lisa.test.TestRunException;
+import com.itko.lisa.vse.stateful.BaseListenStep;
 import com.itko.lisa.vse.stateful.model.Request;
 import com.itko.util.ParameterList;
 import com.itko.util.XMLUtils;
 
 
 @SuppressWarnings("deprecation")
-public class ISO8583ListenerNode extends TestNode implements GenericCreateConnectionNodeInterface {
+public class ISO8583ListenerNode extends BaseListenStep implements GenericCreateConnectionNodeInterface {
 
 	private String keepalive = "0";
 	private String stepContent = "";
@@ -60,11 +59,16 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 			
 			if (!connectionInfo.equals("") && isoConnection == null) {
 				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
-				isoConnection = new ISOConnection(connInfo.isServer(), connInfo.getHost(), connInfo.getPort(), connInfo.getTimeout());
+				isoConnection = new ISOConnection(connInfo.isServer(), 
+						testExec.parseInState(connInfo.getHost()), 
+						Integer.parseInt(testExec.parseInState(connInfo.getPort())), 
+						Integer.parseInt(testExec.parseInState(connInfo.getTimeout())));
 				testExec.setStateObject(connInfo.getName(), isoConnection);
 			}
 			
 			if (isoConnection == null) isoConnection = (ISOConnection) testExec.getStateValue(getConnectionName());
+			
+			setVSResourceName("ISO8583 tcp://"+ isoConnection.getHost() +":"+ isoConnection.getPort(), testExec);
 			
 			final byte[] data = (isoMessage != null ? payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig()) : null);
 			final ISOConnection isoKeepaliveConnection = isoConnection;
@@ -95,7 +99,7 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 				public void keepalive() {
 					try {
 						if (data != null)
-							isoKeepaliveConnection.sendBytes(data, false);
+							isoKeepaliveConnection.sendBytes(data);
 					} 
 					catch (IOException | ParseException | InterruptedException e) {
 						e.printStackTrace();
@@ -122,7 +126,7 @@ public class ISO8583ListenerNode extends TestNode implements GenericCreateConnec
 	}
 
 	@Override
-	public void initialize(TestCase testCase, Element node) throws TestDefException {
+	public void initialize(TestCase testCase, Element node) {
 		for (int i = 0; i < node.getChildNodes().getLength(); i++) {
 			if (node.getChildNodes().item(i).getNodeName().equals("ISO8583Keepalive"))
 				this.keepalive = node.getChildNodes().item(i).getTextContent();

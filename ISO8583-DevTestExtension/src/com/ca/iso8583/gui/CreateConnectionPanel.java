@@ -66,7 +66,7 @@ public class CreateConnectionPanel extends JPanel {
 	
 	public ConnectionInfoVO getConnectionInfo() {
 		if (isEditorValid() == null)
-			return new ConnectionInfoVO(txtName.getText(), txtHost.getText(), Integer.parseInt(txtPort.getText()), Integer.parseInt(txtTimeout.getText()), ckServer.isSelected());
+			return new ConnectionInfoVO(txtName.getText(), txtHost.getText(), txtPort.getText(), txtTimeout.getText(), ckServer.isSelected());
 		else 
 			return null;
 	}
