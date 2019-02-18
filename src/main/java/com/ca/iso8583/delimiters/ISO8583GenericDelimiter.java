@@ -3,7 +3,6 @@ package com.ca.iso8583.delimiters;
 import java.util.List;
 
 import org.adelbs.iso8583.exception.InvalidPayloadException;
-import org.adelbs.iso8583.exception.PayloadIncompleteException;
 import org.adelbs.iso8583.helper.Iso8583Config;
 
 import com.itko.lisa.vse.stateful.protocol.tcp.delimiters.TCPDelimiter;

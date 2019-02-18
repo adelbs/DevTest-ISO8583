@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ca.iso8583</groupId>
+    <artifactId>DevTest-ISO8583</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <name>Adelbs-ISO8583</name>
+    <url>https://github.com/adelbs/DevTest-ISO8583</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- Local Repo -->
+        <dependency>
+            <groupId>org.adelbs.iso8583</groupId>
+            <artifactId>Adelbs-ISO8583</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Local Files -->
+        <dependency>
+            <groupId>lisa-core-10.4.0</groupId>
+            <artifactId>lisa-core-10.4.0</artifactId>
+            <version>10.4.0</version>
+            <scope>system</scope>
+            <systemPath>C:\CA\DevTest\lib\core\lisa-core-10.4.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>lisa-virtualize-10.4.0</groupId>
+            <artifactId>lisa-virtualize-10.4.0</artifactId>
+            <version>10.4.0</version>
+            <scope>system</scope>
+            <systemPath>C:\CA\DevTest\lib\core\lisa-virtualize-10.4.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>lisa-util-10.4.0</groupId>
+            <artifactId>lisa-util-10.4.0</artifactId>
+            <version>10.4.0</version>
+            <scope>system</scope>
+            <systemPath>C:\CA\DevTest\lib\core\lisa-util-10.4.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>lisa-modules-10.4.0</groupId>
+            <artifactId>lisa-modules-10.4.0</artifactId>
+            <version>10.4.0</version>
+            <scope>system</scope>
+            <systemPath>C:\CA\DevTest\lib\core\lisa-modules-10.4.0.jar</systemPath>
+        </dependency>
+    </dependencies>
+</project>

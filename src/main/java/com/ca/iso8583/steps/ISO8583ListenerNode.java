@@ -12,49 +12,63 @@ import org.adelbs.iso8583.vo.FieldVO;
 import org.adelbs.iso8583.vo.MessageVO;
 import org.w3c.dom.Element;
 
+import com.ca.iso8583.test.TestExecConnectionManager;
 import com.ca.iso8583.vo.ConnectionInfoVO;
 import com.itko.lisa.test.TestCase;
 import com.itko.lisa.test.TestExec;
-import com.itko.lisa.test.TestNode;
 import com.itko.lisa.test.TestRunException;
+import com.itko.lisa.vse.stateful.BaseListenStep;
 import com.itko.lisa.vse.stateful.model.Request;
 import com.itko.util.ParameterList;
 import com.itko.util.XMLUtils;
 
-public class ISO8583ParseToRequestNode extends TestNode {
 
+@SuppressWarnings("deprecation")
+public class ISO8583ListenerNode extends BaseListenStep implements GenericCreateConnectionNodeInterface {
+
+	public static final String ISO8583_LISTENER_RECEIVED = "lisa.iso8583.listener.receivedtime";
+	
+	private String keepalive = "0";
 	private String stepContent = "";
-	private String payloadFrom = "";
-	private String payloadTo = "";
+	private String connectionInfo = "";
+	private String connectionName = "";
 
+	public ISO8583ListenerNode() {
+		super();
+	}
+	
+	public ISO8583ListenerNode(String stepContent, String connectionName) {
+		this.stepContent = stepContent;
+		this.connectionName = connectionName;
+	}
+	
 	@Override
 	public String getTypeName() throws Exception {
-		return "ISO8583 Parse to Request";
+		return "ISO8583 Listener";
 	}
 
 	@Override
-	protected void execute(TestExec testExec) throws TestRunException {
+	protected void execute(final TestExec testExec) throws TestRunException {
+		TestExecConnectionManager connManager = null;
 		try {
-			ISOConnection isoConnection = null;
+			connManager = new TestExecConnectionManager(testExec, this.getConnectionName());
+			if (!connectionInfo.equals("")) {
+				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
+				connManager = new TestExecConnectionManager(testExec, connInfo.getName());
+				connManager.connectTo(connInfo);
+			}		
+			
+			final ISOConnection isoConnection = connManager.getCurrentConnection();
+			
 			String parsedXML = testExec.parseInState(stepContent);
 			
 			final TestExec te = testExec;
 			final PayloadMessageConfig payloadMessageConfig = new PayloadMessageConfig(parsedXML);
 			ISOMessage isoMessage = null;
 			
-			if (payloadMessageConfig.getMessageVO() != null)
+			if (payloadMessageConfig.getMessageVO() != null){
 				isoMessage = new ISOMessage(payloadMessageConfig.getMessageVO());
-			
-			if (!connectionInfo.equals("") && isoConnection == null) {
-				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
-				isoConnection = new ISOConnection(connInfo.isServer(), 
-						testExec.parseInState(connInfo.getHost()), 
-						Integer.parseInt(testExec.parseInState(connInfo.getPort())), 
-						Integer.parseInt(testExec.parseInState(connInfo.getTimeout())));
-				testExec.setStateObject(connInfo.getName(), isoConnection);
 			}
-			
-			if (isoConnection == null) isoConnection = (ISOConnection) testExec.getStateValue(getConnectionName());
 			
 			setVSResourceName("ISO8583 tcp://"+ isoConnection.getHost() +":"+ isoConnection.getPort(), testExec);
 			
@@ -66,6 +80,7 @@ public class ISO8583ParseToRequestNode extends TestNode {
 
 				@Override
 				public void dataReceived(byte[] data) throws ParseException {
+					testExec.setStateValue(ISO8583_LISTENER_RECEIVED, System.currentTimeMillis());
 					payloadMessageConfig.updateFromPayload(data);
 					te.setLastResponse(payloadMessageConfig.getXML());
 					
@@ -80,6 +95,7 @@ public class ISO8583ParseToRequestNode extends TestNode {
 					
 					request.setArguments(al);
 					request.setBody(payloadMessageConfig.getXML());
+					
 					testExec.setStateObject("lisa.vse.request", request);
 				}
 
@@ -87,9 +103,11 @@ public class ISO8583ParseToRequestNode extends TestNode {
 				public void keepalive() {
 					try {
 						if (data != null)
-							isoKeepaliveConnection.sendBytes(data);
+							isoKeepaliveConnection.sendBytes(data, false);
 					} 
 					catch (IOException | ParseException | InterruptedException e) {
+						final TestExecConnectionManager connManager = new TestExecConnectionManager(testExec,getConnectionName());
+						connManager.cleanUp();
 						e.printStackTrace();
 					}
 				}
@@ -109,27 +127,53 @@ public class ISO8583ParseToRequestNode extends TestNode {
 			isoConnection.processNextPayload(true, Integer.parseInt(keepalive));
 		}
 		catch (Exception x) {
+			connManager.cleanUp();
 			throw new TestRunException(x.getMessage(), x);
 		}
 	}
 
 	@Override
-	public void initialize(TestCase testCase, Element element) {
-		for (int i = 0; i < element.getChildNodes().getLength(); i++) {
-			if (element.getChildNodes().item(i).getNodeName().equals("ISO8583ParseToPayloadFrom"))
-				this.payloadFrom = element.getChildNodes().item(i).getTextContent();
-			else if (element.getChildNodes().item(i).getNodeName().equals("ISO8583ParseToPayloadTo"))
-				this.payloadTo = element.getChildNodes().item(i).getTextContent();
-			else if (element.getChildNodes().item(i).getNodeName().equals("ISO8583RequestStepContent"))
-				this.stepContent = element.getChildNodes().item(i).getTextContent();
+	public void initialize(TestCase testCase, Element node) {
+		for (int i = 0; i < node.getChildNodes().getLength(); i++) {
+			if (node.getChildNodes().item(i).getNodeName().equals("ISO8583Keepalive"))
+				this.keepalive = node.getChildNodes().item(i).getTextContent();
+			else if (node.getChildNodes().item(i).getNodeName().equals("ISO8583RequestStepContent"))
+				this.stepContent = node.getChildNodes().item(i).getTextContent();
+			else if (node.getChildNodes().item(i).getNodeName().equals("ISO8583ConnectionInfo"))
+				this.connectionInfo = node.getChildNodes().item(i).getTextContent();
+			else if (node.getChildNodes().item(i).getNodeName().equals("ISO8583ConnectionName"))
+				this.connectionName = node.getChildNodes().item(i).getTextContent();
 		}
 	}
 
+	public String getStepContent() {
+		return stepContent;
+	}
+
+	public String getConnectionName() {
+		return this.connectionName;
+	}
+
+	@Override
+	public String getSavedConnectionInfo() {
+		return connectionInfo;
+	}
+
+	public String getKeepalive() {
+		return keepalive;
+	}
+
+	@Override
+	public boolean canDeployToVSE() {
+		return true;
+	}
+	
 	@Override
 	public void writeSubXML(PrintWriter pw) {
-		XMLUtils.streamTagAndChild(pw, "ISO8583ParseToPayloadFrom", payloadFrom);
-		XMLUtils.streamTagAndChild(pw, "ISO8583ParseToPayloadTo", payloadTo);
+		XMLUtils.streamTagAndChild(pw, "ISO8583Keepalive", keepalive);
 		XMLUtils.streamTagAndChild(pw, "ISO8583RequestStepContent", stepContent);
+		XMLUtils.streamTagAndChild(pw, "ISO8583ConnectionInfo", connectionInfo);
+		XMLUtils.streamTagAndChild(pw, "ISO8583ConnectionName", connectionName);
 		pw.flush();
 	}
 
