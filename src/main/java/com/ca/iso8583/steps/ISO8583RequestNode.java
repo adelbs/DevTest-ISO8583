@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import org.adelbs.iso8583.clientserver.CallbackAction;
 import org.adelbs.iso8583.clientserver.ISOConnection;
+import org.adelbs.iso8583.clientserver.SocketPayload;
 import org.adelbs.iso8583.exception.ParseException;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
@@ -54,8 +55,8 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 			isoConnection.setCallback(new CallbackAction() {
 
 				@Override
-				public void dataReceived(byte[] data) throws ParseException {
-					payloadMessageConfig.updateFromPayload(data);
+				public void dataReceived(SocketPayload payload) throws ParseException {
+					payloadMessageConfig.updateFromPayload(payload.getData());
 					te.setLastResponse(payloadMessageConfig.getXML());
 				}
 
@@ -71,7 +72,7 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 			});
 			
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.sendBytes(data, false);
+			isoConnection.send(new SocketPayload(data, isoConnection.getClientSocket()));
 			isoConnection.processNextPayload(true, 0);
 		}
 		catch (Exception x) {

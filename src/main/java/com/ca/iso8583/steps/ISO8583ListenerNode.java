@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import org.adelbs.iso8583.clientserver.CallbackAction;
 import org.adelbs.iso8583.clientserver.ISOConnection;
+import org.adelbs.iso8583.clientserver.SocketPayload;
 import org.adelbs.iso8583.exception.ParseException;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
@@ -79,23 +80,27 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 			isoConnection.setCallback(new CallbackAction() {
 
 				@Override
-				public void dataReceived(byte[] data) throws ParseException {
+				public void dataReceived(SocketPayload payload) throws ParseException {
 					testExec.setStateValue(ISO8583_LISTENER_RECEIVED, System.currentTimeMillis());
-					payloadMessageConfig.updateFromPayload(data);
+					payloadMessageConfig.updateFromPayload(payload.getData());
 					te.setLastResponse(payloadMessageConfig.getXML());
 					
 					Request request = new Request();
-					MessageVO messageVO = payloadMessageConfig.getMessageVOFromXML(payloadMessageConfig.getXML());
+					
+					MessageVO messageVO = payloadMessageConfig.buildMessageStructureFromXML(payloadMessageConfig.getXML());
 					ParameterList al = new ParameterList();
 					
 					request.setOperation(messageVO.getType());
 
-					for (FieldVO fieldVO : messageVO.getFieldList())
+					for (FieldVO fieldVO : messageVO.getFieldList()) {
 						al.put(fieldVO.getBitNum().toString(), fieldVO.getValue());
+//						testExec.setStateObject("bit_"+ fieldVO.getBitNum().toString(), fieldVO.getValue());
+					}
 					
 					request.setArguments(al);
 					request.setBody(payloadMessageConfig.getXML());
 					
+					testExec.setStateObject("socketToRespond", payload.getSocket());
 					testExec.setStateObject("lisa.vse.request", request);
 				}
 
@@ -103,7 +108,7 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 				public void keepalive() {
 					try {
 						if (data != null)
-							isoKeepaliveConnection.sendBytes(data, false);
+							isoKeepaliveConnection.send(new SocketPayload(data, isoKeepaliveConnection.getClientSocket()));
 					} 
 					catch (IOException | ParseException | InterruptedException e) {
 						final TestExecConnectionManager connManager = new TestExecConnectionManager(testExec,getConnectionName());

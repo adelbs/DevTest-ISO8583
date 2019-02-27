@@ -43,7 +43,7 @@ public class ISO8583DataProtocolHandler extends DataProtocol {
 			if (testExec != null) 
 				testExec.setLastResponse(payloadMessageConfig.getXML());
 			
-			MessageVO messageVO = payloadMessageConfig.getMessageVOFromXML(payloadMessageConfig.getXML());
+			MessageVO messageVO = payloadMessageConfig.buildMessageStructureFromXML(payloadMessageConfig.getXML());
 			
 			request.setBinary(false);
 			request.setOperation(messageVO.getType());

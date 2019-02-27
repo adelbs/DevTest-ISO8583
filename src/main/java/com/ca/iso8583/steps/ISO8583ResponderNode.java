@@ -1,9 +1,11 @@
 package com.ca.iso8583.steps;
 
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.List;
 
 import org.adelbs.iso8583.clientserver.ISOConnection;
+import org.adelbs.iso8583.clientserver.SocketPayload;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
 import org.w3c.dom.Element;
@@ -73,7 +75,9 @@ public class ISO8583ResponderNode extends BaseRespondStep {
 			byte[] data = payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig());
 						
 			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.sendBytes(data, false);
+			
+			Socket socket = (Socket) testExec.getStateObject("socketToRespond");
+			isoConnection.send(new SocketPayload(data, socket));
 			
 			final long currentTimeMillis = System.currentTimeMillis();
 			final Long startedTimeMillis = (Long) testExec.getStateValue(ISO8583ListenerNode.ISO8583_LISTENER_RECEIVED);
