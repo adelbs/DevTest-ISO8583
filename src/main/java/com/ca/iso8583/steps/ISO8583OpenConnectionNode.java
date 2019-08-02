@@ -2,6 +2,7 @@ package com.ca.iso8583.steps;
 
 import java.io.PrintWriter;
 
+import org.adelbs.iso8583.util.Out;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Element;
@@ -36,16 +37,27 @@ public class ISO8583OpenConnectionNode extends TestNode implements GenericCreate
 
 	@Override
 	protected void execute(TestExec testExec) throws TestRunException {
-		TestExecConnectionManager connManager = null;
+//		TestExecConnectionManager connManager = null;
+		ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
+		
 		try {
-			ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo); 
-			connManager = new TestExecConnectionManager(testExec, connInfo.getName());
-			connManager.connectTo(connInfo);
+			
+//			connManager = new TestExecConnectionManager(testExec, connInfo.getName());
+//			connManager.connectTo(connInfo);
+			
+			TestExecConnectionManager.connectTo(connInfo, testExec);
+			
+			Out.log("ISO8583OpenConnectionNode", "Connecting...");
 		}
 		catch (Exception x) {
-			if(connManager != null){
-				connManager.cleanUp();
-			}
+			Out.log("ISO8583OpenConnectionNode", "Error "+ x.getMessage());
+			
+//			if(connManager != null){
+//				connManager.cleanUp();
+//			}
+			
+			TestExecConnectionManager.disconnect(connInfo.getName());
+			
 			logger.error("Faile to Start a new ISO connection" + this, x);
 			throw new TestRunException(x.getMessage(), x);
 		}
@@ -66,9 +78,15 @@ public class ISO8583OpenConnectionNode extends TestNode implements GenericCreate
 		super.destroy(ts);
 		try{
 			final ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo); 
-			TestExecConnectionManager connManager  = new TestExecConnectionManager(ts, connInfo.getName());
-			connManager.cleanUp();
-		}catch(Exception e){
+//			TestExecConnectionManager connManager  = new TestExecConnectionManager(ts, connInfo.getName());
+//			connManager.cleanUp();
+			
+//			TestExecConnectionManager.disconnect(connInfo.getName());
+			System.out.println("DESTROY :: TODO");
+		}
+		catch(Exception e){
+			Out.log("ISO8583OpenConnectionNode", "Error on destroy "+ e.getMessage());
+			
 			logger.error("Failed to close ISO connection! " + this, e);
 		}
 	}

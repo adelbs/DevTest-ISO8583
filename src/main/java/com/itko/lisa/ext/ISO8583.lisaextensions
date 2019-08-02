@@ -22,7 +22,8 @@ com.ca.iso8583.steps.ISO8583OpenConnectionNode,\
 com.ca.iso8583.steps.ISO8583RequestNode,\
 com.ca.iso8583.steps.ISO8583ListenerNode,\
 com.ca.iso8583.steps.ISO8583ResponderNode,\
-com.ca.iso8583.steps.ISO8583CloseConnectionNode
+com.ca.iso8583.steps.ISO8583CloseConnectionNode, \
+com.ca.iso8583.steps.ISO8583ParseToPayloadNode
 
 nodeCategories=ISO8583
 
@@ -31,10 +32,12 @@ com.ca.iso8583.steps.ISO8583OpenConnectionNode,\
 com.ca.iso8583.steps.ISO8583RequestNode,\
 com.ca.iso8583.steps.ISO8583ListenerNode,\
 com.ca.iso8583.steps.ISO8583ResponderNode,\
-com.ca.iso8583.steps.ISO8583CloseConnectionNode
+com.ca.iso8583.steps.ISO8583CloseConnectionNode, \
+com.ca.iso8583.steps.ISO8583ParseToPayloadNode
 
 com.ca.iso8583.steps.ISO8583OpenConnectionNode=com.ca.iso8583.steps.ISO8583OpenConnectionNodeInfo,com.ca.iso8583.steps.ISO8583OpenConnectionCustomEditor
 com.ca.iso8583.steps.ISO8583RequestNode=com.ca.iso8583.steps.ISO8583RequestNodeInfo,com.ca.iso8583.steps.ISO8583RequestCustomEditor
 com.ca.iso8583.steps.ISO8583ListenerNode=com.ca.iso8583.steps.ISO8583ListenerNodeInfo,com.ca.iso8583.steps.ISO8583ListenerCustomEditor
 com.ca.iso8583.steps.ISO8583ResponderNode=com.ca.iso8583.steps.ISO8583ResponderNodeInfo,com.ca.iso8583.steps.ISO8583ResponderCustomEditor
 com.ca.iso8583.steps.ISO8583CloseConnectionNode=com.ca.iso8583.steps.ISO8583CloseConnectionNodeInfo,com.ca.iso8583.steps.ISO8583CloseConnectionCustomEditor
+com.ca.iso8583.steps.ISO8583ParseToPayloadNode=com.ca.iso8583.steps.ISO8583ParseToPayloadNodeInfo,com.ca.iso8583.steps.ISO8583ParseToPayloadCustomEditor

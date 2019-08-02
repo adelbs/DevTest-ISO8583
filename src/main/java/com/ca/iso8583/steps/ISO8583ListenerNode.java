@@ -9,6 +9,7 @@ import org.adelbs.iso8583.clientserver.SocketPayload;
 import org.adelbs.iso8583.exception.ParseException;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
+import org.adelbs.iso8583.util.Out;
 import org.adelbs.iso8583.vo.FieldVO;
 import org.adelbs.iso8583.vo.MessageVO;
 import org.w3c.dom.Element;
@@ -28,6 +29,7 @@ import com.itko.util.XMLUtils;
 public class ISO8583ListenerNode extends BaseListenStep implements GenericCreateConnectionNodeInterface {
 
 	public static final String ISO8583_LISTENER_RECEIVED = "lisa.iso8583.listener.receivedtime";
+	public static final String ISO8583_LISTENER_CONNECTIONDROPPED = "lisa.iso8583.listener.connectiondropped";
 	
 	private String keepalive = "0";
 	private String stepContent = "";
@@ -50,16 +52,18 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 
 	@Override
 	protected void execute(final TestExec testExec) throws TestRunException {
-		TestExecConnectionManager connManager = null;
+//		TestExecConnectionManager connManager = null;
 		try {
-			connManager = new TestExecConnectionManager(testExec, this.getConnectionName());
+//			connManager = new TestExecConnectionManager(testExec, this.getConnectionName());
 			if (!connectionInfo.equals("")) {
 				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
-				connManager = new TestExecConnectionManager(testExec, connInfo.getName());
-				connManager.connectTo(connInfo);
+//				connManager = new TestExecConnectionManager(testExec, connInfo.getName());
+//				connManager.connectTo(connInfo);
+				
+				TestExecConnectionManager.connectTo(connInfo, testExec);
 			}		
 			
-			final ISOConnection isoConnection = connManager.getCurrentConnection();
+			final ISOConnection isoConnection = TestExecConnectionManager.getCurrentConnection(this.getConnectionName());
 			
 			String parsedXML = testExec.parseInState(stepContent);
 			
@@ -77,7 +81,7 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 			final ISOConnection isoKeepaliveConnection = isoConnection;
 			
 			isoConnection.setIsoConfig(payloadMessageConfig.getIsoConfig());
-			isoConnection.setCallback(new CallbackAction() {
+			isoConnection.putCallback(String.valueOf(Thread.currentThread().getId()), new CallbackAction() {
 
 				@Override
 				public void dataReceived(SocketPayload payload) throws ParseException {
@@ -102,6 +106,8 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 					
 					testExec.setStateObject("socketToRespond", payload.getSocket());
 					testExec.setStateObject("lisa.vse.request", request);
+					
+					Out.log("ISO8583ListenerNode", "Data received!");
 				}
 
 				@Override
@@ -111,8 +117,11 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 							isoKeepaliveConnection.send(new SocketPayload(data, isoKeepaliveConnection.getClientSocket()));
 					} 
 					catch (IOException | ParseException | InterruptedException e) {
-						final TestExecConnectionManager connManager = new TestExecConnectionManager(testExec,getConnectionName());
-						connManager.cleanUp();
+//						final TestExecConnectionManager connManager = new TestExecConnectionManager(testExec,getConnectionName());
+						
+						TestExecConnectionManager.disconnect(getConnectionName());
+						
+//						connManager.cleanUp();
 						e.printStackTrace();
 					}
 				}
@@ -128,11 +137,14 @@ public class ISO8583ListenerNode extends BaseListenStep implements GenericCreate
 				
 			});
 			
-			if (!isoConnection.isConnected()) isoConnection.connect();
-			isoConnection.processNextPayload(true, Integer.parseInt(keepalive));
+			TestExecConnectionManager.connect(getConnectionName(), String.valueOf(Thread.currentThread().getId()));
+			isoConnection.processNextPayload(String.valueOf(Thread.currentThread().getId()), true, Integer.parseInt(keepalive));
+			testExec.setStateValue(ISO8583_LISTENER_CONNECTIONDROPPED, String.valueOf(isoConnection.isConnected()));
 		}
 		catch (Exception x) {
-			connManager.cleanUp();
+			Out.log("ISO8583ListenerNode", "Error "+ x.getMessage());
+			
+			TestExecConnectionManager.disconnect(getConnectionName());
 			throw new TestRunException(x.getMessage(), x);
 		}
 	}

@@ -30,14 +30,14 @@ public class ISO8583RequestCustomEditor extends CustomEditor {
 			pnlMain = new PnlMain();
 			createOrUseConnectionPanel = new CreateOrUseConnectionPanel();
 			
-			pnlMain.setBounds(0, 0, getWidth(), getHeight());
+			pnlMain.setBounds(0, 0, getWidth(), getHeight() + 50);
 			
 			addComponentListener(new ComponentListener() {
 				@Override
 				public void componentShown(ComponentEvent e) {}
 				@Override
 				public void componentResized(ComponentEvent e) {
-					pnlMain.setBounds(0, 0, getWidth(), getHeight());
+					pnlMain.setBounds(0, 0, getWidth(), getHeight() + 50);
 				}
 				@Override
 				public void componentMoved(ComponentEvent e) {}

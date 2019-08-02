@@ -8,6 +8,7 @@ import org.adelbs.iso8583.clientserver.ISOConnection;
 import org.adelbs.iso8583.clientserver.SocketPayload;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
+import org.adelbs.iso8583.util.Out;
 import org.w3c.dom.Element;
 
 import com.ca.iso8583.test.TestExecConnectionManager;
@@ -60,9 +61,9 @@ public class ISO8583ResponderNode extends BaseRespondStep {
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected void respond(TestExec testExec) throws Exception {
-		TestExecConnectionManager connManager = new TestExecConnectionManager(testExec, this.getConnectionName());  
+//		TestExecConnectionManager connManager = new TestExecConnectionManager(testExec, this.getConnectionName());  
 		try {
-			ISOConnection isoConnection = connManager.getCurrentConnection();
+			ISOConnection isoConnection = TestExecConnectionManager.getCurrentConnection(this.getConnectionName());
 			
 			Object responseObj = testExec.getStateObject("lisa.vse.response");
 			TransientResponse response = (TransientResponse) ((List) responseObj).get(0);
@@ -74,7 +75,9 @@ public class ISO8583ResponderNode extends BaseRespondStep {
 			
 			byte[] data = payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig());
 						
-			if (!isoConnection.isConnected()) isoConnection.connect();
+			if (!isoConnection.isConnected()) isoConnection.connect(String.valueOf(Thread.currentThread().getId()));
+			
+			Out.log("ISO8583ResponderNode", "Sending response!");
 			
 			Socket socket = (Socket) testExec.getStateObject("socketToRespond");
 			isoConnection.send(new SocketPayload(data, socket));
@@ -84,7 +87,12 @@ public class ISO8583ResponderNode extends BaseRespondStep {
 			testExec.setStateValue("lisa.iso8583.response.processtime", currentTimeMillis-startedTimeMillis);
 		}
 		catch (Exception x) {
-			connManager.cleanUp();
+			Out.log("ISO8583ResponderNode", "Error "+ x.getMessage());
+			
+//			connManager.cleanUp();
+			
+			TestExecConnectionManager.disconnect(this.getConnectionName());
+			
 			throw new TestRunException(x.getMessage(), x);
 		}
 	}

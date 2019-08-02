@@ -3,6 +3,7 @@ package com.ca.iso8583.steps;
 import java.io.PrintWriter;
 
 import org.adelbs.iso8583.clientserver.ISOConnection;
+import org.adelbs.iso8583.util.Out;
 import org.w3c.dom.Element;
 
 import com.itko.lisa.test.TestCase;
@@ -10,6 +11,7 @@ import com.itko.lisa.test.TestDefException;
 import com.itko.lisa.test.TestExec;
 import com.itko.lisa.test.TestNode;
 import com.itko.lisa.test.TestRunException;
+import com.itko.lisa.vse.SharedModelMap;
 import com.itko.util.XMLUtils;
 
 public class ISO8583CloseConnectionNode extends TestNode {
@@ -43,11 +45,16 @@ public class ISO8583CloseConnectionNode extends TestNode {
 
 	@Override
 	protected void execute(TestExec testExec) throws TestRunException {
+		
 		try {
-			ISOConnection isoConnection = (ISOConnection) testExec.getStateValue(getConnectionName());
-			isoConnection.endConnection();
+			ISOConnection isoConnection = (ISOConnection) SharedModelMap.getObject(getConnectionName());
+			isoConnection.endConnection(String.valueOf(Thread.currentThread().getId()));
+			
+			Out.log("ISO8583CloseConnectionNode", "Connection closed");
 		}
 		catch (Exception x) {
+			Out.log("ISO8583CloseConnectionNode", "Error "+ x.getMessage());
+			
 			throw new TestRunException(x.getMessage(), x);
 		}
 	}

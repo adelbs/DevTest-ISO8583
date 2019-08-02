@@ -23,7 +23,7 @@ public class ISO8583ParseToPayloadNode extends TestNode {
 
 	@Override
 	protected void execute(TestExec testExec) throws TestRunException {
-		
+		System.out.println("Parse to payload");
 	}
 
 	@Override

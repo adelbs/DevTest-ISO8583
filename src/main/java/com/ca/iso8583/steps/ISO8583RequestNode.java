@@ -8,6 +8,7 @@ import org.adelbs.iso8583.clientserver.SocketPayload;
 import org.adelbs.iso8583.exception.ParseException;
 import org.adelbs.iso8583.helper.PayloadMessageConfig;
 import org.adelbs.iso8583.protocol.ISOMessage;
+import org.adelbs.iso8583.util.Out;
 import org.w3c.dom.Element;
 
 import com.ca.iso8583.test.TestExecConnectionManager;
@@ -33,15 +34,21 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 
 	@Override
 	protected void execute(TestExec testExec) throws TestRunException {
-		TestExecConnectionManager connManager = null;
+//		TestExecConnectionManager connManager = null;
+		ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
+		
 		try {
-			connManager = new TestExecConnectionManager(testExec, this.getConnectionName());
-			if (!connectionInfo.equals("")) {
-				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
-				connManager = new TestExecConnectionManager(testExec, connInfo.getName());
-				connManager.connectTo(connInfo);
-			}		
-			final ISOConnection isoConnection = connManager.getCurrentConnection();
+//			connManager = new TestExecConnectionManager(testExec, this.getConnectionName());
+			
+//			if (!connectionInfo.equals("")) {
+//				ConnectionInfoVO connInfo = new ConnectionInfoVO(connectionInfo);
+//				connManager = new TestExecConnectionManager(testExec, connInfo.getName());
+//				connManager.connectTo(connInfo);
+				
+				TestExecConnectionManager.connectTo(connInfo, testExec);
+//			}
+				
+			final ISOConnection isoConnection = TestExecConnectionManager.getCurrentConnection(connInfo.getName());
 			
 			String parsedXML = testExec.parseInState(stepContent);
 			
@@ -52,10 +59,12 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 			byte[] data = payloadMessageConfig.getIsoConfig().getDelimiter().preparePayload(isoMessage, payloadMessageConfig.getIsoConfig());
 			
 			isoConnection.setIsoConfig(payloadMessageConfig.getIsoConfig());
-			isoConnection.setCallback(new CallbackAction() {
+			isoConnection.putCallback(String.valueOf(Thread.currentThread().getId()), new CallbackAction() {
 
 				@Override
 				public void dataReceived(SocketPayload payload) throws ParseException {
+					Out.log("ISO8583RequestNode", "Response received!");
+					
 					payloadMessageConfig.updateFromPayload(payload.getData());
 					te.setLastResponse(payloadMessageConfig.getXML());
 				}
@@ -71,12 +80,20 @@ public class ISO8583RequestNode extends TestNode implements GenericCreateConnect
 				
 			});
 			
-			if (!isoConnection.isConnected()) isoConnection.connect();
+			Out.log("ISO8583RequestNode", "Sending payload!");
+			
+			if (!isoConnection.isConnected()) isoConnection.connect(String.valueOf(Thread.currentThread().getId()));
 			isoConnection.send(new SocketPayload(data, isoConnection.getClientSocket()));
-			isoConnection.processNextPayload(true, 0);
+			isoConnection.processNextPayload(String.valueOf(Thread.currentThread().getId()), true, 0);
 		}
 		catch (Exception x) {
-			connManager.cleanUp();
+			Out.log("ISO8583RequestNode", "Error "+ x.getMessage());
+			
+//			connManager.cleanUp();
+			
+			TestExecConnectionManager.disconnect(connInfo.getName());
+			
+			
 			throw new TestRunException(x.getMessage(), x);
 		}
 	}
