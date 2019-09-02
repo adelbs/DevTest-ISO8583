@@ -18,7 +18,7 @@ import com.itko.util.XMLUtils;
 
 public class ISO8583OpenConnectionNode extends TestNode implements GenericCreateConnectionNodeInterface {
 	
-	 protected static Log logger = LogFactory.getLog("com.ca.iso8583.steps.ISO8583OpenConnectionNode");
+	protected static Log logger = LogFactory.getLog("com.ca.iso8583.steps.ISO8583OpenConnectionNode");
 
 	private String connectionInfo = "";
 	

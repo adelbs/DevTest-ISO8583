@@ -2,7 +2,7 @@ package com.ca.iso8583.steps;
 
 import com.itko.lisa.editor.CustomEditor;
 
-public class ISO8583ParseToRequestCustomEditor extends CustomEditor {
+public class ISO8583ParseRequestCustomEditor extends CustomEditor {
 
     private static final long serialVersionUID = 1L;
 
