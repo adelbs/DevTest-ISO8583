@@ -26,8 +26,7 @@ com.ca.iso8583.steps.ISO8583ListenerNode,\
 com.ca.iso8583.steps.ISO8583ResponderNode,\
 com.ca.iso8583.steps.ISO8583CloseConnectionNode, \
 com.ca.iso8583.steps.ISO8583ParseRequestNode, \
-com.ca.iso8583.steps.ISO8583ParseResponseNode, \
-com.ca.iso8583.steps.ISO8583ConfigNode
+com.ca.iso8583.steps.ISO8583ParseResponseNode
 
 nodeCategories=ISO8583
 
@@ -38,8 +37,7 @@ com.ca.iso8583.steps.ISO8583ListenerNode,\
 com.ca.iso8583.steps.ISO8583ResponderNode,\
 com.ca.iso8583.steps.ISO8583CloseConnectionNode, \
 com.ca.iso8583.steps.ISO8583ParseRequestNode, \
-com.ca.iso8583.steps.ISO8583ParseResponseNode, \
-com.ca.iso8583.steps.ISO8583ConfigNode
+com.ca.iso8583.steps.ISO8583ParseResponseNode
 
 com.ca.iso8583.steps.ISO8583OpenConnectionNode=com.ca.iso8583.steps.ISO8583OpenConnectionNodeInfo,com.ca.iso8583.steps.ISO8583OpenConnectionCustomEditor
 com.ca.iso8583.steps.ISO8583RequestNode=com.ca.iso8583.steps.ISO8583RequestNodeInfo,com.ca.iso8583.steps.ISO8583RequestCustomEditor
@@ -48,4 +46,3 @@ com.ca.iso8583.steps.ISO8583ResponderNode=com.ca.iso8583.steps.ISO8583ResponderN
 com.ca.iso8583.steps.ISO8583CloseConnectionNode=com.ca.iso8583.steps.ISO8583CloseConnectionNodeInfo,com.ca.iso8583.steps.ISO8583CloseConnectionCustomEditor
 com.ca.iso8583.steps.ISO8583ParseRequestNode=com.ca.iso8583.steps.ISO8583ParseRequestNodeInfo,com.ca.iso8583.steps.ISO8583ParseRequestCustomEditor
 com.ca.iso8583.steps.ISO8583ParseResponseNode=com.ca.iso8583.steps.ISO8583ParseResponseNodeInfo,com.ca.iso8583.steps.ISO8583ParseResponseCustomEditor
-com.ca.iso8583.steps.ISO8583ConfigNode=com.ca.iso8583.steps.ISO8583ConfigNodeInfo,com.ca.iso8583.steps.ISO8583ConfigCustomEditor

@@ -31,22 +31,42 @@ public class ISO8583Length2DelimiterBeginning implements TCPDelimiter {
 	@Override
 	public boolean locateRequest(List<Byte> bytes) {
 		boolean result = false;
+		
 		try {
 			result = delimiter.isPayloadComplete(bytes, null);
 		} 
 		catch (InvalidPayloadException e) {
 			result = true;
 		}
+        	
+		endOfRequest = bytes.size();
+		startOfNextRequest = 0;
+
+    	//LOG ####################################################################################################
+		System.out.println("--- Thread("+ Thread.currentThread().getId() +"):Delimiter ---");
 		
-		if (!result) {
-            endOfRequest = -1;
-            startOfNextRequest = -1;
-        }
-        else {
-            endOfRequest = bytes.size();
-            //endOfRequest = 1;
-            startOfNextRequest = 0;
-        }
+		if (bytes.size() > 6) {
+			try {
+				for (int i = 0; i < bytes.size(); i++) {
+					System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i) +"] = "+ ((int) bytes.get( i )) +";");	
+				}
+				
+//				System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i + 0) +"] = "+ ((int) bytes.get( i + 0 )) +";");
+//				System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i + 1) +"] = "+ ((int) bytes.get( i + 1 )) +";");
+//				System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i + 2) +"] = "+ ((int) bytes.get( i + 2 )) +";");
+//				System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i + 3) +"] = "+ ((int) bytes.get( i + 3 )) +";");
+//				System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i + 4) +"] = "+ ((int) bytes.get( i + 4 )) +";");
+//				System.out.println("Thread("+ Thread.currentThread().getId() +"):Delimiter :: data["+ (i + 5) +"] = "+ ((int) bytes.get( i + 5 )) +";");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("--- Thread("+ Thread.currentThread().getId() +"):Delimiter :: data.size() = "+  bytes.size());
+		System.out.println("--- Thread("+ Thread.currentThread().getId() +"):Delimiter :: endOfRequest = "+ endOfRequest);
+		System.out.println("--- Thread("+ Thread.currentThread().getId() +"):Delimiter :: startOfNextRequest = "+ startOfNextRequest);
+		System.out.println("--- Thread("+ Thread.currentThread().getId() +"):Delimiter :: MessageComplete: "+ String.valueOf(result) +" ---");
 		
 		return result;  
 	}

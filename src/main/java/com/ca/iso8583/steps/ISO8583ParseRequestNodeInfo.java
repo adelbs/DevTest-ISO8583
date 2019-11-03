@@ -8,15 +8,13 @@ public class ISO8583ParseRequestNodeInfo extends GenericNodeInfo {
 
 	@Override
 	public void writeSubXML(PrintWriter pw) {
-		XMLUtils.streamTagAndChild(pw, "ISO8583ParseRequestFrom", (String) getAttribute("ISO8583ParseRequestFrom"));
-		XMLUtils.streamTagAndChild(pw, "ISO8583ParseRequestTo", (String) getAttribute("ISO8583ParseRequestTo"));
+		XMLUtils.streamTagAndChild(pw, "ISO8583ConfigFilePath", (String) getAttribute("ISO8583ConfigFilePath"));
 		pw.flush();
 	}
 
 	@Override
 	public void migrate(Object node) {
-		putAttribute("ISO8583ParseRequestFrom", ((ISO8583ParseRequestNode) node).getPayloadFrom());
-		putAttribute("ISO8583ParseRequestTo", ((ISO8583ParseRequestNode) node).getPayloadTo());
+		putAttribute("ISO8583ConfigFilePath", ((ISO8583ParseRequestNode) node).getisoConfigFilePath());
 	}
 
 }
