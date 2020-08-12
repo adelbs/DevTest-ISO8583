@@ -41,14 +41,14 @@ public class ISO8583ParseRequestNode extends TestNode {
 		try {
 			
 			//Config ###########################################################
-			if (!SharedModelMap.containsKey("isoConfig")) {
+//			if (!SharedModelMap.containsKey("isoConfig")) {
 				synchronized(this) {
-					if (!SharedModelMap.containsKey("isoConfig")) {
+//					if (!SharedModelMap.containsKey("isoConfig")) {
 						System.out.println("################ CREATE PARSER CONFIG ################");
 						SharedModelMap.putObject("isoConfig", new Iso8583Config2(isoConfigFilePath));
-					}
+//					}
 				}
-			}
+//			}
 			
 			Iso8583Config2 isoConfig = (Iso8583Config2) SharedModelMap.getObject("isoConfig");
 			byte[] bytes = getNextBytesPayload(testExec, isoConfig);

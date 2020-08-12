@@ -3,7 +3,7 @@
     <groupId>com.ca.iso8583</groupId>
     <artifactId>DevTest-ISO8583</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.16</version>
+    <version>1.4.85</version>
     <name>Adelbs-ISO8583</name>
     <url>https://github.com/adelbs/DevTest-ISO8583</url>
     <properties>
@@ -40,32 +40,32 @@
         </dependency>
         <!-- Local Files -->
         <dependency>
-            <groupId>lisa-core-10.4.0</groupId>
-            <artifactId>lisa-core-10.4.0</artifactId>
-            <version>10.4.0</version>
+            <groupId>lisa-core-10.6.0</groupId>
+            <artifactId>lisa-core-10.6.0</artifactId>
+            <version>10.6.0</version>
             <scope>system</scope>
-            <systemPath>C:\CA\DevTest\lib\core\lisa-core-10.5.0.jar</systemPath>
+            <systemPath>c:\CA\DevTest\lib\core\lisa-core-10.6.0.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>lisa-virtualize-10.4.0</groupId>
-            <artifactId>lisa-virtualize-10.4.0</artifactId>
-            <version>10.4.0</version>
+            <groupId>lisa-virtualize-10.6.0</groupId>
+            <artifactId>lisa-virtualize-10.6.0</artifactId>
+            <version>10.6.0</version>
             <scope>system</scope>
-            <systemPath>C:\CA\DevTest\lib\core\lisa-virtualize-10.5.0.jar</systemPath>
+            <systemPath>c:\ca\DevTest\lib\core\lisa-virtualize-10.6.0.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>lisa-util-10.4.0</groupId>
-            <artifactId>lisa-util-10.4.0</artifactId>
-            <version>10.4.0</version>
+            <groupId>lisa-util-10.6.0</groupId>
+            <artifactId>lisa-util-10.6.0</artifactId>
+            <version>10.6.0</version>
             <scope>system</scope>
-            <systemPath>C:\CA\DevTest\lib\core\lisa-util-10.5.0.jar</systemPath>
+            <systemPath>c:\CA\DevTest\lib\core\lisa-util-10.6.0.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>lisa-modules-10.4.0</groupId>
-            <artifactId>lisa-modules-10.4.0</artifactId>
-            <version>10.4.0</version>
+            <groupId>lisa-modules-10.6.0</groupId>
+            <artifactId>lisa-modules-10.6.0</artifactId>
+            <version>10.6.0</version>
             <scope>system</scope>
-            <systemPath>C:\CA\DevTest\lib\core\lisa-modules-10.5.0.jar</systemPath>
+            <systemPath>c:\CA\DevTest\lib\core\lisa-modules-10.6.0.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
