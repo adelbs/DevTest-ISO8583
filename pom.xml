@@ -3,7 +3,7 @@
     <groupId>com.ca.iso8583</groupId>
     <artifactId>DevTest-ISO8583</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.85</version>
+    <version>1.4.90</version>
     <name>Adelbs-ISO8583</name>
     <url>https://github.com/adelbs/DevTest-ISO8583</url>
     <properties>

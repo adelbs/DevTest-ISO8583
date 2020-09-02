@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+
+<VSModel name="ISO8583EcoTest" version="5">
+
+<meta>
+   <create version="10.1.0" buildNumber="10.1.0.283" author="admin" date="02/01/2018" host="CTSBRA56797" />
+   <lastEdited version="10.6.0" buildNumber="10.6.0.1011" author="admin" date="09/02/2020" host="2H1BZY2" />
+</meta>
+
+<id>630ACF0A960F11EA8D2496E6F770EBB7</id>
+<Documentation>Put documentation of the VS Model here.</Documentation>
+<IsInProject>true</IsInProject>
+<sig>ZWQ9NSZ0Y3Y9NSZsaXNhdj0xMC42LjAgKDEwLjYuMC4xMDExKSZub2Rlcz02MjAwMzE0ODg=</sig>
+<subprocess>false</subprocess>
+
+<initState>
+</initState>
+
+<resultState>
+</resultState>
+
+<deletedProps>
+</deletedProps>
+
+    <Node name="Virtual TCP/IP Listener 9980" log=""
+          type="com.itko.lisa.vse.stateful.protocol.tcp.listen.TCPListenStep" 
+          version="1" 
+          uid="630ACF0B960F11EA8D2496E6F770EBB7" 
+          think="0" 
+          useFilters="true" 
+          quiet="false" 
+          next="ISO8583 Parse Request" > 
+
+
+      <!-- Filters -->
+      <Filter type="com.itko.lisa.test.TimeStampFilter">
+        <valueToFilterKey>lisa.Virtual TCP/IP Listener 9980.rsp</valueToFilterKey>
+<pre>false</pre>
+<post>true</post>
+<datePattern>ddMMyyyy</datePattern>
+<preprop></preprop>
+<postprop>data0110</postprop>
+<Offset>15d</Offset>
+      </Filter>
+
+<outputAsObject>true</outputAsObject>
+<onExceptionStep>abort</onExceptionStep>
+<listenPort>9980</listenPort>
+<treatRequestAsText>false</treatRequestAsText>
+<requestCharset>UTF-8</requestCharset>
+<requestDelimiter>&amp;lt;com.ca.iso8583.delimiters.ISO8583Length2DelimiterBeginning&amp;gt;&amp;#10;  &amp;lt;delimiter/&amp;gt;&amp;#10;  &amp;lt;startOfNextRequest&amp;gt;-1&amp;lt;/startOfNextRequest&amp;gt;&amp;#10;  &amp;lt;endOfRequest&amp;gt;-1&amp;lt;/endOfRequest&amp;gt;&amp;#10;&amp;lt;/com.ca.iso8583.delimiters.ISO8583Length2DelimiterBeginning&amp;gt;</requestDelimiter>
+<useSSL>false</useSSL>
+<sslClientAuthType>none</sslClientAuthType>
+    </Node>
+
+
+    <Node name="ISO8583 Parse Request" log=""
+          type="com.ca.iso8583.steps.ISO8583ParseRequestNode" 
+          version="1" 
+          uid="630ACF0D960F11EA8D2496E6F770EBB7" 
+          think="0H" 
+          useFilters="true" 
+          quiet="false" 
+          next="Execute script (JSR-223)" > 
+
+
+      <!-- Filters -->
+      <Filter type="com.itko.lisa.test.FilterXMLGetTagAttribute">
+        <valueToFilterKey>lisa.ISO8583 Parse Request.rsp</valueToFilterKey>
+      <tag>message</tag>
+      <tagn>1</tagn>
+      <attrib>tpduresponse</attrib>
+      <prop>tpduresponse</prop>
+      <default>6800055555</default>
+      <urlencode>true</urlencode>
+      </Filter>
+
+<ISO8583ConfigFilePath>C:\Users\ts667662\Downloads\Rede\_ISO8583-Rede - Eco SimplesNVAR.xml</ISO8583ConfigFilePath>
+    </Node>
+
+
+    <Node name="Execute script (JSR-223)" log=""
+          type="com.itko.lisa.test.UserScriptNode" 
+          version="1" 
+          uid="9B14FEFEC21411EABD1B96E6F770EBB7" 
+          think="500-1S" 
+          useFilters="true" 
+          quiet="false" 
+          next="Conversational Transaction Response Selector" > 
+
+
+      <!-- Assertions -->
+<CheckResult assertTrue="true" name="Any Exception Then Fail" type="com.itko.lisa.dynexec.CheckInvocationEx">
+<log>Assertion name: Any Exception Then Fail checks for: true is of type: Assert on Invocation Exception.</log>
+<then>fail</then>
+<valueToAssertKey></valueToAssertKey>
+        <param>.*</param>
+</CheckResult>
+
+<onerror>abort</onerror>
+<language>BeanShell</language>
+<copyProps>TestExecProps</copyProps>
+<script>if(testExec.getStateObject(&quot;tpduresponse&quot;)==null){&#13;&#10;    System.out.println(&quot;without tpdu&quot;);&#13;&#10;    testExec.setStateObject(&quot;tpduresponse&quot;,&quot;&quot;);&#13;&#10;}&#13;&#10;else{&#13;&#10;    System.out.println(&quot;with tpdu&quot;);&#13;&#10;}&#13;&#10;</script>
+    </Node>
+
+
+    <Node name="Conversational Transaction Response Selector" log=""
+          type="com.itko.lisa.vse.stateful.ConversationalStep" 
+          version="1" 
+          uid="630ACF10960F11EA8D2496E6F770EBB7" 
+          think="0" 
+          useFilters="true" 
+          quiet="false" 
+          next="ISO8583 Parse Response" > 
+
+<vsiSource>{{LISA_RELATIVE_PROJ_ROOT}}/VServices/Images/ISO8583EcoTestImage.vsi</vsiSource>
+<requestPropertyName>lisa.vse.request</requestPropertyName>
+<outputAsObject>true</outputAsObject>
+<liveInvocationStep></liveInvocationStep>
+<onExceptionStep>abort</onExceptionStep>
+    </Node>
+
+
+    <Node name="ISO8583 Parse Response" log=""
+          type="com.ca.iso8583.steps.ISO8583ParseResponseNode" 
+          version="1" 
+          uid="630ACF12960F11EA8D2496E6F770EBB7" 
+          think="0H" 
+          useFilters="true" 
+          quiet="false" 
+          next="Virtual TCP/IP Responder" > 
+
+
+      <!-- Assertions -->
+<CheckResult assertTrue="true" name="Scripted Assertion" type="com.itko.lisa.test.AssertByScript">
+<log>Assertion name: Scripted Assertion checks for: true is of type: Assert by Script Execution.</log>
+<then>ISO8583 Parse Request</then>
+<valueToAssertKey></valueToAssertKey>
+        <script>System.out.println(testExec.getStateValue(&quot;iso8583.nextPayloads&quot;).toString());&#13;&#10;return (testExec.getStateValue(&quot;iso8583.nextPayloads&quot;) != null);&#13;&#10;&#13;&#10;</script>
+        <language>BeanShell</language>
+        <copyprops>TestExecPropsAndSystemProps</copyprops>
+</CheckResult>
+
+<ISO8583ParseResponseFrom></ISO8583ParseResponseFrom>
+<ISO8583ParseResponseTo></ISO8583ParseResponseTo>
+    </Node>
+
+
+    <Node name="Virtual TCP/IP Responder" log=""
+          type="com.itko.lisa.vse.stateful.protocol.tcp.respond.TCPRespondStep" 
+          version="1" 
+          uid="630ACF14960F11EA8D2496E6F770EBB7" 
+          think="0" 
+          useFilters="true" 
+          quiet="false" 
+          next="Virtual TCP/IP Listener 9980" > 
+
+<responseList>lisa.vse.response</responseList>
+<onExceptionStep>abort</onExceptionStep>
+    </Node>
+
+
+    <Node name="abort" log=""
+          type="com.itko.lisa.test.AbortStep" 
+          version="1" 
+          uid="630ACF19960F11EA8D2496E6F770EBB7" 
+          think="0h" 
+          useFilters="true" 
+          quiet="true" 
+          next="" > 
+
+    </Node>
+
+
+    <Node name="fail" log=""
+          type="com.itko.lisa.test.Abend" 
+          version="1" 
+          uid="630ACF1A960F11EA8D2496E6F770EBB7" 
+          think="0h" 
+          useFilters="true" 
+          quiet="true" 
+          next="abort" > 
+
+    </Node>
+
+
+    <Node name="end" log=""
+          type="com.itko.lisa.test.NormalEnd" 
+          version="1" 
+          uid="630ACF1B960F11EA8D2496E6F770EBB7" 
+          think="0h" 
+          useFilters="true" 
+          quiet="true" 
+          next="fail" > 
+
+    </Node>
+
+
+</VSModel>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceImage buildNumber="10.6.0.1011" created="2018-02-07.15:39:41.092" id="1" lastModified="2020-09-02.13:58:52.053" name="ISO8583EcoTestImage" version="10.6.0">
+<st>
+<t id="223" nd="true">
+<sp>
+<t id="60">
+<rq id="226" op="0800" tl="EXACT">
+<ag>
+<p n="3" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="11" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="24" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="41" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="42" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="47" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="48" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+</ag>
+</rq>
+<rs>
+<rp id="227" t="0">
+<bd chs="UTF-8">&lt;?xml version="1.0" ?&gt;&#xd;
+&#xd;
+ &lt;document&gt;&#xd;
+&#xd;
+&#xd;
+&lt;message type="0810" header="" tpdu="{{=tpduresponse}}"&gt;&#xd;
+	&lt;bit num="3" value="004222"/&gt;&#xd;
+	&lt;bit num="11" value="040995"/&gt;&#xd;
+	&lt;bit num="12" value="120547"/&gt;&#xd;
+	&lt;bit num="13" value="0722"/&gt;&#xd;
+	&lt;bit num="24" value="1181"/&gt;&#xd;
+	&lt;bit num="37" value="11746215    "/&gt;&#xd;
+	&lt;bit num="39" value="00"/&gt;&#xd;
+	&lt;bit num="41" value="CC068695"/&gt;&#xd;
+	&lt;bit num="47" value="3A000420200722"/&gt;&#xd;
+&lt;/message&gt;&#xd;
+&#xd;
+&lt;/document&gt;</bd>
+</rp>
+</rs>
+</t>
+</sp>
+<rq id="224" op="0800" tl="OPERATION">
+<ag>
+<p n="3" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="11" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="24" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="41" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="42" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="47" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+<p n="48" t="arg:EQUALS;false;;;;">&lt;value&gt;</p>
+</ag>
+</rq>
+<rs>
+<rp id="225" t="0">
+<bd chs="UTF-8">&lt;?xml version="1.0" ?&gt;&#xd;
+&#xd;
+ &lt;document&gt;&#xd;
+&#xd;
+&lt;message type="0810" header="" tpdu="{{=tpduresponse}}"&gt;&#xd;
+	&lt;bit num="3" value="004111"/&gt;&#xd;
+	&lt;bit num="11" value="040995"/&gt;&#xd;
+	&lt;bit num="12" value="120547"/&gt;&#xd;
+	&lt;bit num="13" value="0722"/&gt;&#xd;
+	&lt;bit num="24" value="1181"/&gt;&#xd;
+	&lt;bit num="37" value="11746215    "/&gt;&#xd;
+	&lt;bit num="39" value="00"/&gt;&#xd;
+	&lt;bit num="41" value="CC068695"/&gt;&#xd;
+	&lt;bit num="47" value="3A000420200722"/&gt;&#xd;
+&lt;/message&gt;&#xd;
+&#xd;
+&lt;/document&gt;</bd>
+</rp>
+</rs>
+</t>
+</st>
+<usrr>
+<rp id="2" t="0">
+<bd chs="UTF-8">&lt;?xml version="1.0"?&gt;&#xd;
+&lt;document&gt;&#xd;
+&#xd;
+&lt;message type="0110" tpdu="{{=tpduresponse}}"&gt;&#xd;
+  &lt;bit num="7" value="00"/&gt;&#xd;
+  &lt;bit num="11" value="00"/&gt;&#xd;
+  &lt;bit num="12" value="00"/&gt;&#xd;
+  &lt;bit num="13" value="00"/&gt;&#xd;
+  &lt;bit num="37" value="00"/&gt;&#xd;
+  &lt;bit num="38" value="00"/&gt;&#xd;
+  &lt;bit num="39" value="00"/&gt;&#xd;
+  &lt;bit num="48" value="99"/&gt;&#xd;
+  &lt;bit num="63" value="Unknown"/&gt;&#xd;
+  &lt;bit num="127" value="00"/&gt;&#xd;
+&lt;/message&gt;&#xd;
+ &lt;/document&gt;</bd>
+</rp>
+</usrr>
+</serviceImage>
